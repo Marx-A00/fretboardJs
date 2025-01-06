@@ -1,0 +1,3 @@
+* TODOS
+* Long term vision
+- Want to be able to take input from real guitar and show on fretboard which notes are being played
