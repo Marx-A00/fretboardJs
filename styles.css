@@ -32,3 +32,32 @@ body {
   position: absolute;
   top: 22px;
 }
+.note-fret{
+  display: flex;
+  flex: 1;
+  border-right: 10px solid;
+  border-image: linear-gradient(to left, #777, #bbb) 1 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.note-fret:first-child {
+  background: #161717;
+  min-width: 76px;
+  border-right: 12px solid;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-image: linear-gradient(to left, #bbb, #fff, #bbb) 1 100%;
+}
+.note-fret:before {
+  content: 'C';
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  line-height: 33px;
+  text-align: center;
+  background: teal;
+  z-index: 2;
+  color: #eee;
+  opacity: 0.5;
+}
