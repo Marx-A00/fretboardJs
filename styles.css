@@ -1,3 +1,16 @@
+:root {
+  --fretboard-height: 300;
+  --number-of-strings: 6;
+  --string-height: 10;
+  --half-string-height: calc(var(--string-height) / 2);
+  --string-top-position: calc(var(--fretboard-height) / var(--number-of-strings) / 2 - var(--half-string-height));
+
+
+  --background-color: #353535;
+  --fretboard-color: #be975b;
+  --string-color: #161717;
+  --note-color: teal;
+}
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +25,7 @@ body {
   flex-direction: column;
   background: #be975b;
   width: 100%;
-  height: 300px;
+  height: calc(var(--fretboard-height) * 1px);
   margin-top: 50px;
 }
 
@@ -25,12 +38,13 @@ body {
 .string:before{
   content: '';
   width: 100%;
-  height: 10px;
+  height: calc(var(--string-height) * 1px);
   background: linear-gradient(#eee,#999);
   box-shadow: 76px 3px 10px #806233;
   z-index: 1;
   position: absolute;
   top: 22px;
+  top: calc(var(--string-top-position) * 1px);
 }
 .note-fret{
   display: flex;
