@@ -59,5 +59,36 @@ body {
   background: teal;
   z-index: 2;
   color: #eee;
-  opacity: 0.5;
+  opacity: 0.2;
+}
+.single-fretmark:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #806233;
+  border-radius: 50%;
+  top: 150px;
+  transform: translateX(0,-50%);
+}
+
+.double-fretmark:before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #806233;
+  border-radius: 50%;
+  top: 58px;
+  transform: translateX(-140%,50%);
+}
+.double-fretmark:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #806233;
+  border-radius: 50%;
+  top: 208px;
+  transform: translateX(-140%,50%);
 }
