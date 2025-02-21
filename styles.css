@@ -1,9 +1,11 @@
 :root {
-  --fretboard-height: 300;
+  --fretboard-height: 350;
   --number-of-strings: 6;
   --string-height: 10;
   --half-string-height: calc(var(--string-height) / 2);
   --string-top-position: calc(var(--fretboard-height) / var(--number-of-strings) / 2 - var(--half-string-height));
+  --double-fretmark-position-1: calc(var(--fretboard-height) * 0.25);
+  --double-fretmark-position-2: calc(var(--fretboard-height) * 0.75);
 
 
   --background-color: #353535;
@@ -73,7 +75,8 @@ body {
   background: teal;
   z-index: 2;
   color: #eee;
-  opacity: 0.2;
+  /* 0 for now */
+  opacity: 0; 
 }
 .single-fretmark:after {
   content: '';
@@ -82,7 +85,7 @@ body {
   height: 20px;
   background: #806233;
   border-radius: 50%;
-  top: 150px;
+  top: calc(var(--fretboard-height) / 2 * 1px);
   transform: translateX(0,-50%);
 }
 
@@ -93,8 +96,8 @@ body {
   height: 20px;
   background: #806233;
   border-radius: 50%;
-  top: 58px;
-  transform: translateX(-140%,50%);
+  top: calc(var(--double-fretmark-position-1) * 1px);
+  transform: translateX(-140%,-50%);
 }
 .double-fretmark:after {
   content: '';
@@ -103,6 +106,6 @@ body {
   height: 20px;
   background: #806233;
   border-radius: 50%;
-  top: 208px;
-  transform: translateX(-140%,50%);
+  top: calc(var(--double-fretmark-position-2) * 1px);
+  transform: translateX(-140%,-50%);
 }
