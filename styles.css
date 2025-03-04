@@ -86,7 +86,7 @@ body {
   background: #806233;
   border-radius: 50%;
   top: calc(var(--fretboard-height) / 2 * 1px);
-  transform: translateX(0,-50%);
+  transform: translate(0,-50%);
 }
 
 .double-fretmark:before {
@@ -97,7 +97,7 @@ body {
   background: #806233;
   border-radius: 50%;
   top: calc(var(--double-fretmark-position-1) * 1px);
-  transform: translateX(-140%,-50%);
+  transform: translate(-140%,-50%);
 }
 .double-fretmark:after {
   content: '';
@@ -107,5 +107,5 @@ body {
   background: #806233;
   border-radius: 50%;
   top: calc(var(--double-fretmark-position-2) * 1px);
-  transform: translateX(-140%,-50%);
+  transform: translate(-140%,-50%);
 }
