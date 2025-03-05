@@ -1,3 +1,4 @@
+const root = document.documentElement;
 const fretboard = document.querySelector('.fretboard');
 const numberOfFrets = 12;
 const numberOfStrings = 6;
@@ -12,6 +13,7 @@ const app = {
 
     },
     setupFretboard(){
+        root.style.setProperty('--number-of-strings', numberOfStrings);
         // Add strings to fretboard
 
         for(let i = 0; i < numberOfStrings; i++){
