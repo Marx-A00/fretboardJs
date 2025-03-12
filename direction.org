@@ -1,3 +1,25 @@
 * TODOS
 * Long term vision
 - Want to be able to take input from real guitar and show on fretboard which notes are being played
+## Development Roadmap
+
+1. Create basic fretboard visualization
+2. Implement scale pattern display
+3. Add music theory educational content
+4. Integrate Web Audio API for sound generation
+5. Implement audio input capabilities using Web Audio API
+
+## Audio Interface Integration
+
+Yes, it's definitely possible to connect a guitar to the application using the Web Audio API! Here's how it could work:
+
+1. Connect your guitar to an audio interface
+2. The interface connects to your computer via USB
+3. The Web Audio API can access this input stream
+4. JavaScript code can analyze the incoming audio to detect notes
+5. The application can then visualize what you're playing in real-time
+
+This would require:
+- Web Audio API implementation
+- Audio analysis algorithms for pitch detection
+- Low-latency processing to ensure responsive feedback

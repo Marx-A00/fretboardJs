@@ -10,7 +10,9 @@ const doubleFretMarkPositions = [12,24];
 const notesFlat = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"]
 const notesSharp = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 
-let accidentals = 'flats'
+
+let accidentals = 'sharps'
+const guitarTuning = [4, 11, 7, 2, 9, 4];
 
 const app = {
     init(){
@@ -25,6 +27,7 @@ const app = {
             let string = tools.createElement('div');
             string.classList.add('string');
             fretboard.appendChild(string);
+            console.log('string number: ', i)
 
             // create frets
             for(let fret = 0; fret <= numberOfFrets; fret ++){
@@ -32,6 +35,10 @@ const app = {
                 let noteFret = tools.createElement('div');
                 noteFret.classList.add('note-fret')
                 string.appendChild(noteFret)
+
+                let noteName = this.generateNoteNames((fret + guitarTuning[i]), accidentals)
+                noteFret.setAttribute('data-note', noteName);
+                console.log('Note name: ', noteName)
 
                 if(i === 0 && singleFretMarkPositions.indexOf(fret) !== -1 ){
                     noteFret.classList.add('single-fretmark');
@@ -55,9 +62,7 @@ const app = {
         else if (accidentals === 'sharps'){
             noteName = notesSharp[noteIndex]
         }
-
         return noteName;
-
     }
 }
 
