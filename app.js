@@ -1,6 +1,8 @@
 const root = document.documentElement;
 const fretboard = document.querySelector('.fretboard');
 const selectedInstrumentSelector = document.querySelector('#instrument-selector');
+const accidentalSelector = document.querySelector('.accidental-selector');
+console.log('accidentalSelector:',accidentalSelector)
 const numberOfFrets = 12;
 
 
@@ -95,6 +97,15 @@ const app = {
             numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
             this.setupFretboard();
         });
+        accidentalSelector.addEventListener('click', (event) => {
+            if (event.target.classList.contains('acc-select')){
+                accidentals = event.target.value;
+                console.log('accidentals', accidentals);
+                this.setupFretboard();
+            } else {
+                return;
+            }
+        })
     }
 }
 
