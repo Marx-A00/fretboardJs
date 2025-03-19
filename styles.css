@@ -6,6 +6,7 @@
   --string-top-position: calc(var(--fretboard-height) / var(--number-of-strings) / 2 - var(--half-string-height));
   --double-fretmark-position-1: calc(var(--fretboard-height) * 0.25);
   --double-fretmark-position-2: calc(var(--fretboard-height) * 0.75);
+  --noteDotOpacity: 0;
 
 
   --background-color: #353535;
@@ -22,6 +23,13 @@ body {
   background: #353535;
 }
 
+.settings {
+  display: flex;
+  color: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #444;
+  background: #282828;
+}
 .fretboard {
   display: flex;
   flex-direction: column;
@@ -76,7 +84,7 @@ body {
   z-index: 2;
   color: #eee;
   /* 0 for now */
-  opacity: 1; 
+  opacity: var(--noteDotOpacity); 
 }
 
 .single-fretmark:after, .double-fretmark:before, .double-fretmark:after {
