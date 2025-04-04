@@ -1,6 +1,7 @@
+(function() {
 const root = document.documentElement;
 const fretboard = document.querySelector('.fretboard');
-const selectedInstrumentSelector = document.querySelector('#instrument-selector');
+const instrumentSelector = document.querySelector('#instrument-selector');
 const accidentalSelector = document.querySelector('.accidental-selector');
 const numberOfFretsSelector = document.querySelector('#number-of-frets')
 const showAllNotesSelector = document.querySelector('#show-all-notes')
@@ -10,6 +11,7 @@ console.log('accidentalSelector:',accidentalSelector)
 
 let allNotes;
 let showMultipleNotes = false;
+let showAllNotes = false;
 let numberOfFrets = 20;
 
 
@@ -32,9 +34,9 @@ let numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
 const app = {
     init(){
         this.setupFretboard();
-        this.setupSelectedInstrumentSelector();
-        this.setupEventListeners();
+        this.setupinstrumentSelector();
         this.setupNoteNameSection();
+        handlers.setupEventListeners();
 
 
     },
@@ -80,10 +82,10 @@ const app = {
         }
         return noteName;
     },
-    setupSelectedInstrumentSelector(){
+    setupinstrumentSelector(){
         for (instrument in instrumentTuningPresets){
             let instrumentOption = tools.createElement('option', instrument);
-            selectedInstrumentSelector.appendChild(instrumentOption);
+            instrumentSelector.appendChild(instrumentOption);
         }
     },
     setupNoteNameSection() {
@@ -100,80 +102,6 @@ const app = {
         })
 
     },
-    showNoteDot(event){
-        if (event.target.classList.contains('note-fret')) {
-            if (showMultipleNotes) {
-                app.toggleMultipleNotes(event.target.dataset.note, 1);
-                
-            } else {
-                event.target.style.setProperty('--noteDotOpacity', 1);
-            }
-        }
-
-    },
-    hideNoteDot(event){
-        if (showMultipleNotes) {
-            app.toggleMultipleNotes(event.target.dataset.note, 0);
-            
-        } else {
-            event.target.style.setProperty('--noteDotOpacity', 0);
-        }
-
-    },
-    setupEventListeners(){
-        fretboard.addEventListener('mouseover', this.showNoteDot);
-        fretboard.addEventListener('mouseout', this.hideNoteDot);
-        selectedInstrumentSelector.addEventListener('change', (event) => {
-            selectedInstrument = event.target.value;
-            console.log('Selected instrument: ', selectedInstrument);
-            numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
-            this.setupFretboard();
-        });
-        accidentalSelector.addEventListener('click', (event) => {
-            if (event.target.classList.contains('acc-select')){
-                accidentals = event.target.value;
-                console.log('accidentals', accidentals);
-                this.setupFretboard();
-                this.setupNoteNameSection();
-            } else {
-                return;
-            }
-        });
-        numberOfFretsSelector.addEventListener('change', () => {
-            numberOfFrets = numberOfFretsSelector.value;
-            this.setupFretboard();
-        });
-        showAllNotesSelector.addEventListener('change', () => {
-            if (showAllNotesSelector.checked){
-                root.style.setProperty('--noteDotOpacity', 1);
-                fretboard.removeEventListener('mouseover', this.showNoteDot);
-                fretboard.removeEventListener('mouseout', this.hideNoteDot);
-                this.setupFretboard();
-            } else {
-                root.style.setProperty('--noteDotOpacity', 0);
-                fretboard.addEventListener('mouseover', this.showNoteDot);
-                fretboard.addEventListener('mouseout', this.hideNoteDot);
-                this.setupFretboard();
-            }
-        });
-        showMultipleNotesSelector.addEventListener('change', () => {
-            showMultipleNotes = !showMultipleNotes;
-        })
-        noteNameSection.addEventListener('mouseover', (event)=> {
-            let noteToShow = event.target.innerText;
-            app.toggleMultipleNotes(noteToShow, 1);
-
-        })
-        noteNameSection.addEventListener('mouseout', (event)=> {
-            if (!showAllNotesSelector.checked) {
-            let noteToShow = event.target.innerText;
-            app.toggleMultipleNotes(noteToShow, 0);
-                
-            } else {
-                return;
-            }
-        })
-    },
     toggleMultipleNotes(noteName, opacity){
         for (let i = 0; i < allNotes.length; i++) {
             if (allNotes[i].dataset.note === noteName){
@@ -182,6 +110,89 @@ const app = {
             
         }
     }
+}
+const handlers = {
+    showNoteDot(event){
+        if (showAllNotes) {
+            return;
+        }
+        if (event.target.classList.contains('note-fret')) {
+            if (showMultipleNotes) {
+                app.toggleMultipleNotes(event.target.dataset.note, 1);
+                
+            } else {
+                event.target.style.setProperty('--noteDotOpacity', 1);
+            }
+        }
+    },
+    hideNoteDot(event){
+        if (showAllNotes) {
+            return;
+        }
+        if (showMultipleNotes) {
+            app.toggleMultipleNotes(event.target.dataset.note, 0);
+            
+        } else {
+            event.target.style.setProperty('--noteDotOpacity', 0);
+        }
+
+    },
+    setSelectedInstrument(event){
+        selectedInstrument = event.target.value;
+        console.log('Selected instrument: ', selectedInstrument);
+        numberOfStrings = instrumentTuningPresets[selectedInstrument].length;
+        app.setupFretboard();
+    },
+    setAccidentals (event) {
+        if (event.target.classList.contains('acc-select')){
+            accidentals = event.target.value;
+            console.log('accidentals', accidentals);
+            app.setupFretboard();
+            app.setupNoteNameSection();
+        } else {
+            return;
+        }
+    },
+    setNumberOfFrets(){
+        numberOfFrets = numberOfFretsSelector.value;
+        app.setupFretboard();
+    },
+    setShowAllNotes(){
+        showAllNotes = showAllNotesSelector.checked;
+        if (showAllNotes){
+            root.style.setProperty('--noteDotOpacity', 1);
+            app.setupFretboard();
+        } else {
+            root.style.setProperty('--noteDotOpacity', 0);
+            app.setupFretboard();
+        }
+    },
+    setShowMultipleNotes(){
+        showMultipleNotes = !showMultipleNotes;
+    },
+    setNotesToShow(event){
+        let noteToShow = event.target.innerText;
+        app.toggleMultipleNotes(noteToShow, 1);
+    },
+    setNotesToHide(event){
+        if (!showAllNotes) {
+        let noteToHide = event.target.innerText;
+        app.toggleMultipleNotes(noteToHide, 0);
+    } else {
+        return;
+    }
+    },
+    setupEventListeners(){
+        fretboard.addEventListener('mouseover', this.showNoteDot);
+        fretboard.addEventListener('mouseout', this.hideNoteDot);
+        instrumentSelector.addEventListener('change', this.setSelectedInstrument);
+        accidentalSelector.addEventListener('click', this.setAccidentals);
+        numberOfFretsSelector.addEventListener('change', this.setNumberOfFrets);
+        showAllNotesSelector.addEventListener('change', this.setShowAllNotes);
+        showMultipleNotesSelector.addEventListener('change', this.setShowMultipleNotes);
+        noteNameSection.addEventListener('mouseover', this.setNotesToShow);
+        noteNameSection.addEventListener('mouseout', this.setNotesToHide);
+    },
 }
 
 const tools = {
@@ -200,3 +211,5 @@ const tools = {
 }
 
 app.init();
+
+})();
